@@ -18,3 +18,7 @@ This is a small program written in uLisp controlling an automated incubator. It 
 
 The uLisp extension for the BME680 sensor, the servo and the OLED display uses the following Arduino libraries that need to be installed prior to compilation: *Adafruit BME680 library*, *Servo*, *U8g2*.
 
+![Schematic](schematic.jpg)
+![Photo](incubator.jpg)
+
+
