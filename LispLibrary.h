@@ -208,12 +208,12 @@ const char LispLibrary[] PROGMEM =  R"lisplibrary(
 					(when is-active
 						(when (>= (bme-read-temp) target-temp) (off))
 						(when is-heating 
-							(when (or (> (millis) (+ start-time (* sec-on 1000))))
+							(when (> (abs (- (millis) start-time)) (* sec-on 1000))
 								(wait)
 							)
 						)
 						(when is-waiting
-							(if (or (> (millis) (+ start-time (* sec-off 1000))))
+							(when (> (abs (- (millis) start-time)) (* sec-off 1000))
 								(heat)
 							)
 						)
@@ -277,7 +277,7 @@ const char LispLibrary[] PROGMEM =  R"lisplibrary(
 
 	(loop
 		#|check conditions in defined intervals|#
-		(when (> (millis) (+ timestamp polltime))
+		(when (> (abs (- (millis) timestamp)) polltime)
 			(setf timestamp (millis))
 
 			#|check temperature conditions and react|#
