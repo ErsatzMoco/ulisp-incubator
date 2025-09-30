@@ -13,7 +13,7 @@ This is a small program written in uLisp controlling an automated incubator. It 
 - 2 foil heaters 12 V, 12 W
 - 2 thermal fuses (e.g. 84 degrees Celsius)
 - 1 miniature fuse 3 A (main power supply)
-- 1 self-resetting fuse 200 mA (fans)
+- 2 self-resetting fuses 150 or 200 mA (fans)
 - main switch
 - 12 V power supply, at least 3 A continuous power delivery
 - micro servo for ventilation flap
