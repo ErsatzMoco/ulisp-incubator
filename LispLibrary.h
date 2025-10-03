@@ -229,7 +229,7 @@ const char LispLibrary[] PROGMEM =  R"lisplibrary(
 
 (defun setup ()
 	#|data logging on/off|#
-	(defvar log nil)
+	(defvar logging nil)
 
 	#|minimum temperature 28 degrees celsius|#
 	(defvar mintemp 28)
@@ -241,6 +241,7 @@ const char LispLibrary[] PROGMEM =  R"lisplibrary(
 	(defvar polltime 5000)
 	#|reset timestamp|#
 	(defvar timestamp (millis))
+	(defvar now 0)
 
 	#|initialize sensor and oled|#
 	(bme-begin)
@@ -266,7 +267,7 @@ const char LispLibrary[] PROGMEM =  R"lisplibrary(
 	(oled-write-string 0 62 "COOLING off")
 
 	#|create empty log file|#
-	(when log
+	(when logging
 		(with-sd-card (str "log.csv" 2) (princ "TMP,HUM,Heater,Cooler" str) (terpri str))
 	)
 )
@@ -277,8 +278,9 @@ const char LispLibrary[] PROGMEM =  R"lisplibrary(
 
 	(loop
 		#|check conditions in defined intervals|#
-		(when (> (abs (- (millis) timestamp)) polltime)
-			(setf timestamp (millis))
+		(setf now (millis))
+		(when (> (abs (- now timestamp)) polltime)
+			(setf timestamp now)
 
 			#|check temperature conditions and react|#
 			(if (myheater 'is-active)
@@ -311,7 +313,7 @@ const char LispLibrary[] PROGMEM =  R"lisplibrary(
 				(oled-write-string 0 62 "COOLING off")
 			)
 
-			(when log
+			(when logging
 				(with-sd-card (str "log.csv" 1)
 					(princ (bme-read-temp) str) (princ "," str)
 					(princ (bme-read-hum) str) (princ "," str)
