@@ -255,7 +255,7 @@ const char LispLibrary[] PROGMEM =  R"lisplibrary(
 	(fanmode 'init)
 	(defvar myfan (fan 1))
 	(myfan 'init)
-	(defvar myhatch (hatch 2 28 1 0 80))
+	(defvar myhatch (hatch 2 28 1 0 95))
 	(myhatch 'init)
 	(myhatch 'close)
 	(defvar myheater (heater 30 30 targettemp 3 myfan fanmode))
@@ -285,7 +285,7 @@ const char LispLibrary[] PROGMEM =  R"lisplibrary(
 			#|check temperature conditions and react|#
 			(if (myheater 'is-active)
 				(myheater 'check)
-				(when (< (bme-read-temp) mintemp) (mycooler 'off) (myheater 'on))
+				(when (< (bme-read-temp) mintemp) (when (mycooler 'is-active) (mycooler 'off)) (myheater 'on))
 			)
 			(if (mycooler 'is-active)
 				(mycooler 'check)

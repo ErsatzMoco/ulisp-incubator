@@ -17,7 +17,7 @@
 #include <Servo.h>
 
 Adafruit_BME680 bme(&Wire); // I2C
-U8G2_SH1106_128X64_NONAME_F_HW_I2C oled = U8G2_SH1106_128X64_NONAME_F_HW_I2C(U8G2_R0, /* reset=*/U8X8_PIN_NONE);
+U8G2_SSD1306_128X64_NONAME_F_HW_I2C oled = U8G2_SSD1306_128X64_NONAME_F_HW_I2C(U8G2_R0, /* reset=*/U8X8_PIN_NONE);
 
 struct ulservo {
   int snum;
